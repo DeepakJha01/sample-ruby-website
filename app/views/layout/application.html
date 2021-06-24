@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=2.0">
+    <title><%= @title ? "#{@title} - #{APP_CONFIG['site_title']}": APP_CONFIG['site_title'] %></title>
+    <meta name="description" content="<%= @description || APP_CONFIG['site_description'] %>">
+    <meta name="author" content="Robbin Fan">
+    <link href="/rss" rel="alternate" title="<%= APP_CONFIG['site_title'] %>" type="application/rss+xml" />
+    <%= stylesheet_link_tag 'default/document', 'default/content' %>
+    <%= yield_content :stylesheets %>
+  </head>
+  <body>
+    <div id="flash-notice"></div>
+    
+    
+    <div class="wrap clearfix">
+      <%= yield %>
+    </div><!-- content -->
+    
+    <div class="footer">
+    	<a href="http://weibo.com/robbinfan" class="weibo">Weibo</a>
+      <a href="https://github.com/robbin" class="github">Github</a>      
+      <a href="mailto:fankai@gmail.com" class="mail">Email</a>
+      <div class="powered-by">
+        <a href="http://robbinfan.com" title="robbin的自言自语">Powered by robbin</a>&nbsp;
+				<a href="http://www.elvenui.com/" title="Elvenui" target="_blank">Design by Elvenui</a>
+      </div>
+    </div><!-- footer -->
+    <%= javascript_include_tag 'jquery', 'jquery-ujs', 'application' %>
+    <%= yield_content :javascripts %>
+    <script type="text/javascript">
+      // $('form#cse-search-box button#search-button').click(function(){
+      //   window.open('http://guge.io/#q=' + $('form#cse-search-box input#search-box').val() + '+site:robbinfan.com');
+      //   return false;
+      // });
+      <% if flash[:notice] %>
+      $('div#flash-notice').html('<%= flash[:notice] %>').show().fadeOut(3000);
+      <% end %>
+    </script>
+  </body>
+</html>
